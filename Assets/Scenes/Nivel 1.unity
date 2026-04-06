@@ -199,7 +199,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -5
   m_MaskInteraction: 0
   m_Sprite: {fileID: 21300000, guid: fbcf2d8ab6c19ae46a5184c7ef8fa658, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -342,7 +342,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -7
   m_MaskInteraction: 0
   m_Sprite: {fileID: 21300000, guid: 74ee6fae2b8fd3a49823407091c1bb8c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -367,7 +367,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EfectoParalax
   camaraTransform: {fileID: 1488449197}
-  efectoParallax: 0
+  efectoParallax: 0.4
 --- !u!1 &511309284
 GameObject:
   m_ObjectHideFlags: 0
@@ -448,7 +448,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -8
   m_MaskInteraction: 0
   m_Sprite: {fileID: 21300000, guid: 65a14acacbe569540b24c60363c89c37, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -473,7 +473,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EfectoParalax
   camaraTransform: {fileID: 1488449197}
-  efectoParallax: 0
+  efectoParallax: 0.6
 --- !u!1 &511359923
 GameObject:
   m_ObjectHideFlags: 0
@@ -554,7 +554,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -9
   m_MaskInteraction: 0
   m_Sprite: {fileID: 21300000, guid: 68b62da5da91f4444879a7eda76c6da7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -579,7 +579,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EfectoParalax
   camaraTransform: {fileID: 1488449197}
-  efectoParallax: 0
+  efectoParallax: 0.8
 --- !u!1 &647068525
 GameObject:
   m_ObjectHideFlags: 0
@@ -889,7 +889,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -6
   m_MaskInteraction: 0
   m_Sprite: {fileID: 21300000, guid: 862a8674d68193e41a288ce4067b8efb, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -914,7 +914,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EfectoParalax
   camaraTransform: {fileID: 1488449197}
-  efectoParallax: 0
+  efectoParallax: 0.2
 --- !u!1 &1328077555
 GameObject:
   m_ObjectHideFlags: 0
@@ -1318,7 +1318,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EfectoParalax
   camaraTransform: {fileID: 1488449197}
-  efectoParallax: 0
+  efectoParallax: 1
 --- !u!212 &1688210758
 SpriteRenderer:
   serializedVersion: 2
@@ -1366,7 +1366,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -10
   m_MaskInteraction: 0
   m_Sprite: {fileID: 21300000, guid: 6f2d977f1276772458091e1be11b1c9b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
