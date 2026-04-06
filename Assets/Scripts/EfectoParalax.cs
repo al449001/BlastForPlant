@@ -1,56 +1,35 @@
 using UnityEngine;
 
-
 [RequireComponent(typeof(SpriteRenderer))]
 public class EfectoParalax : MonoBehaviour
-
 {
-
     private float longitudSprite;
     private float posicionInicialX;
 
     [Header("Configuración")]
-
-    public Transform camaraTransform; // Arrastra la Main Camera aquí
-
+    public Transform camaraTransform;
     [Tooltip("0 = Se mueve con la cámara (cielo). 1 = Estático (primer plano). 0.5 = Mitad de velocidad.")]
-
     public float efectoParallax;
 
-
     void Start()
-
     {
-
-        posicionInicialX = transform.position.x;//Obtenemos el ancho exacto del sprite para saber cuándo repetirlo
-        longitudSprite = GetComponent<SpriteRenderer>().bounds.size.x;
-
+        posicionInicialX = transform.position.x;
+        longitudSprite = GetComponent<SpriteRenderer>().sprite.bounds.size.x;
     }
-
-
-    void Update()
-
+    void LateUpdate()
     {
-        float temp = (camaraTransform.position.x * (1 - efectoParallax));//'temp' es cuánto ha avanzado la cámara
-        float distancia = (camaraTransform.position.x * efectoParallax);//'distancia' es hacia dónde debemos mover el fondo
+        float temp = (camaraTransform.position.x * (1 - efectoParallax));
+        float distancia = (camaraTransform.position.x * efectoParallax);
 
-        transform.position = new Vector3(posicionInicialX + distancia, transform.position.y, transform.position.z);//movim iento del fondo
-
-
-        //Si se mueve más allá del sprite, vuelve a empezar
+        transform.position = new Vector3(posicionInicialX + distancia, transform.position.y, transform.position.z);
 
         if (temp > posicionInicialX + longitudSprite)
-        { 
+        {
             posicionInicialX += longitudSprite;
-
         }
-
         else if (temp < posicionInicialX - longitudSprite)
-
         {
             posicionInicialX -= longitudSprite;
         }
-
     }
-
 }
