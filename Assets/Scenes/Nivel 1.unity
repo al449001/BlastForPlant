@@ -678,17 +678,17 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.028044462, y: 0.36133075}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0}
-    oldSize: {x: 0.7222222, y: 0.8888889}
+    oldSize: {x: 0.65, y: 0.8}
     newSize: {x: 0.36, y: 0.36}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.59854317, y: 0.72836804}
   m_EdgeRadius: 0
 --- !u!114 &518914521
 MonoBehaviour:
@@ -703,8 +703,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ControlEnemigo
   radioDeVision: 6
-  radioDeAtaque: 1.5
-  velocidad: 2
+  fuerzaSalto: 5
+  fuerzaAvance: 3
+  tiempoEntreSaltos: 1.5
   jugador: {fileID: 1328077557}
 --- !u!95 &518914522
 Animator:
@@ -1339,7 +1340,7 @@ MonoBehaviour:
   fuerzaSalto: 8
   multiplicadorCaida: 6
   controladorSuelo: {fileID: 146188964}
-  radioSuelo: 0.2
+  radioSuelo: 0.1
   EsSuelo:
     serializedVersion: 2
     m_Bits: 64
@@ -1348,7 +1349,7 @@ MonoBehaviour:
   nombreEscenaGameOver: GameOver
   prefabBala: {fileID: 389138862201261385, guid: c40351dbff833cc4c98f35df2d363b12, type: 3}
   puntoDeDisparo: {fileID: 1995106952}
-  tiempoRecarga: 0.5
+  tiempoRecarga: 0.2
 --- !u!70 &1328077562
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
