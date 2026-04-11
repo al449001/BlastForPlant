@@ -4,28 +4,14 @@ using UnityEngine;
 public class ControlBala : MonoBehaviour
 {
     public float velocidad = 15f;
-    public float tiempoDeVida = 1.5f;
-
-    // Guardaremos aquí la dirección (1 para derecha, -1 para izquierda)
-    private float direccion = 1f;
-
-    // Esta función la llamará el jugador justo después de crear la bala
-    public void ConfigurarDireccion(float dirJugador)
-    {
-        direccion = dirJugador;
-
-        // Extra: Volteamos el sprite de la bala si vamos a la izquierda
-        Vector3 escala = transform.localScale;
-        escala.x = Mathf.Abs(escala.x) * direccion;
-        transform.localScale = escala;
-    }
+    public float tiempoDeVida = 1.5f; //Esto limita su alcance. Se destruirá en 1.5 segundos.
 
     void Start()
     {
-        //En lugar de usar transform.right, usamos un Vector2 puro multiplicado por la dirección
-        GetComponent<Rigidbody2D>().linearVelocity = new Vector2(velocidad * direccion, 0f);
+        //Le damos velocidad hacia la derecha (si el personaje gira, el transform.right girará con él)
+        GetComponent<Rigidbody2D>().linearVelocity = transform.right * velocidad;
 
-        // Autodestrucción
+        //Autodestrucción por si no choca con nada
         Destroy(gameObject, tiempoDeVida);
     }
 
@@ -34,13 +20,7 @@ public class ControlBala : MonoBehaviour
         //Si choca contra el enemigo
         if (collision.gameObject.CompareTag("Enemigo"))
         {
-            // En lugar de destruirlo de golpe, le decimos que ejecute su muerte especial
-            ControlEnemigo enemigo = collision.gameObject.GetComponent<ControlEnemigo>();
-            if (enemigo != null)
-            {
-                enemigo.MorirPorDisparo();
-            }
-
+            Destroy(collision.gameObject); //Destruye al enemigo
             Destroy(gameObject); //Destruye la bala
         }
     }

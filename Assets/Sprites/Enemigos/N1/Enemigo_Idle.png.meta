@@ -1,28 +1,28 @@
 fileFormatVersion: 2
-guid: 9dca1d15b4da02246a2187cb4da2f791
+guid: 72fed6d694c42e94cba53807b2651432
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 3043408596248641623
-    second: Enemigo idle_0
+      213: -8935321599966913060
+    second: Enemigo 1 (v2 Idle)_0
   - first:
-      213: 5440407784567719522
-    second: Enemigo idle_1
+      213: 6899085198346577615
+    second: Enemigo 1 (v2 Idle)_1
   - first:
-      213: -574863119363401795
-    second: Enemigo idle_2
+      213: -5079015416515572740
+    second: Enemigo 1 (v2 Idle)_2
   - first:
-      213: 1556401380871274933
-    second: Enemigo idle_3
+      213: 385689052916845026
+    second: Enemigo 1 (v2 Idle)_3
   - first:
-      213: 1759634773011684842
-    second: Enemigo idle_4
+      213: 8081289853545290168
+    second: Enemigo 1 (v2 Idle)_4
   - first:
-      213: 4358511434947813572
-    second: Enemigo idle_5
+      213: -3642233327889271998
+    second: Enemigo 1 (v2 Idle)_5
   - first:
-      213: -4768007851178438801
-    second: Enemigo idle_6
+      213: -59826857698877639
+    second: Enemigo 1 (v2 Idle)_6
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -69,7 +69,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 40
+  spritePixelsToUnits: 32
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -121,10 +121,10 @@ TextureImporter:
       name: Enemigo_Idle_0
       rect:
         serializedVersion: 2
-        x: 0
+        x: 5
         y: 0
-        width: 36
-        height: 36
+        width: 26
+        height: 32
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -133,8 +133,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e4d525f4e414bcb4b932841d91cef0a4
-      internalID: 1649551486
+      spriteID: 59166e9d3a24ff54586f7eb00a47fc9e
+      internalID: 1882563939
       vertices: []
       indices: 
       edges: []
@@ -143,10 +143,10 @@ TextureImporter:
       name: Enemigo_Idle_1
       rect:
         serializedVersion: 2
-        x: 36
-        y: 0
-        width: 36
-        height: 36
+        x: 41
+        y: 2
+        width: 26
+        height: 32
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -155,8 +155,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6df7619c948d9264d907e09564b3ed7e
-      internalID: -2106140296
+      spriteID: 9b5e807de510e5648b25908de1615f2d
+      internalID: 1846536453
       vertices: []
       indices: 
       edges: []
@@ -165,10 +165,10 @@ TextureImporter:
       name: Enemigo_Idle_2
       rect:
         serializedVersion: 2
-        x: 72
-        y: 0
-        width: 36
-        height: 36
+        x: 77
+        y: 4
+        width: 26
+        height: 32
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -177,8 +177,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e2950d129eeebc2428709e0d8e3f0a42
-      internalID: -1553121131
+      spriteID: 3813a39f9480ec346b8349d35596b7fb
+      internalID: 1955476213
       vertices: []
       indices: 
       edges: []
@@ -187,10 +187,10 @@ TextureImporter:
       name: Enemigo_Idle_3
       rect:
         serializedVersion: 2
-        x: 108
-        y: 0
-        width: 36
-        height: 36
+        x: 113
+        y: 4
+        width: 26
+        height: 32
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -199,8 +199,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 229eb37e5b2c35c458d69e21f47a7acc
-      internalID: -381426367
+      spriteID: 551cadff73cb1b74ab2b7a8e8d450a1a
+      internalID: -240771620
       vertices: []
       indices: 
       edges: []
@@ -209,10 +209,10 @@ TextureImporter:
       name: Enemigo_Idle_4
       rect:
         serializedVersion: 2
-        x: 144
-        y: 0
-        width: 36
-        height: 36
+        x: 149
+        y: 4
+        width: 26
+        height: 32
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -221,8 +221,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 40f21702c3781cf4eb591f213937e772
-      internalID: -1383602867
+      spriteID: 522ffe21920faf849af7880a9b1b429c
+      internalID: -925608140
       vertices: []
       indices: 
       edges: []
@@ -231,10 +231,10 @@ TextureImporter:
       name: Enemigo_Idle_5
       rect:
         serializedVersion: 2
-        x: 180
-        y: 0
-        width: 36
-        height: 36
+        x: 185
+        y: 2
+        width: 26
+        height: 32
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -243,8 +243,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4df3a6b3c250af74b948068ed95c2e1f
-      internalID: 1337454634
+      spriteID: 5b00df77fd3e83b4fb84b6517db105ea
+      internalID: -38930622
       vertices: []
       indices: 
       edges: []
@@ -253,10 +253,10 @@ TextureImporter:
       name: Enemigo_Idle_6
       rect:
         serializedVersion: 2
-        x: 216
+        x: 221
         y: 0
-        width: 36
-        height: 36
+        width: 26
+        height: 32
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -265,8 +265,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7d8d78965a7811746951fcadaaa58e60
-      internalID: -841044534
+      spriteID: e60b3e5f7d7b5ac42bdeb2623bee8036
+      internalID: 1023830592
       vertices: []
       indices: 
       edges: []
@@ -275,7 +275,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 1428c3b2547bd8843a6fb136003d1edf
+    spriteID: e3544d5cb2f68924fab7b7069e04d0fc
     internalID: 0
     vertices: []
     indices: 
@@ -285,15 +285,15 @@ TextureImporter:
     spriteCustomMetadata:
       entries:
       - key: SpriteEditor.SliceSettings
-        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":36.0,"y":36.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.0},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":7,"pivotUnitMode":0,"slicingType":1,"keepEmptyRects":false,"isAlternate":false}'
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":64.0,"y":64.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.0},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":7,"pivotUnitMode":0,"slicingType":0,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
-      Enemigo_Idle_0: 1649551486
-      Enemigo_Idle_1: -2106140296
-      Enemigo_Idle_2: -1553121131
-      Enemigo_Idle_3: -381426367
-      Enemigo_Idle_4: -1383602867
-      Enemigo_Idle_5: 1337454634
-      Enemigo_Idle_6: -841044534
+      Enemigo_Idle_0: 1882563939
+      Enemigo_Idle_1: 1846536453
+      Enemigo_Idle_2: 1955476213
+      Enemigo_Idle_3: -240771620
+      Enemigo_Idle_4: -925608140
+      Enemigo_Idle_5: -38930622
+      Enemigo_Idle_6: 1023830592
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
