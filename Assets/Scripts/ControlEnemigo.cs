@@ -1,82 +1,98 @@
 using UnityEngine;
 
+// Obligamos a Unity a que este objeto tenga siempre estos componentes
 [RequireComponent(typeof(Rigidbody2D), typeof(Animator))]
 public class ControlEnemigo : MonoBehaviour
 {
-    [Header("Configuración")]
-    [Tooltip("Distancia a la que el enemigo cambia de Idle a Ataque")]
+    [Header("Configuración de IA")]
+    public float radioDeVision = 6f;
     public float radioDeAtaque = 1.5f;
+    public float velocidad = 2f;
 
     [Header("Referencias")]
     public Transform jugador;
 
     private Animator animator;
+    private Rigidbody2D rb;
 
     void Start()
     {
         animator = GetComponent<Animator>();
+        rb = GetComponent<Rigidbody2D>();
 
-        // Si nos olvidamos de poner al jugador en el Inspector, el código lo busca por su nombre
-        if (jugador == null) jugador = GameObject.Find("Personaje").transform;
+        // Si se te olvida poner al jugador en el Inspector, el script lo busca por ti
+        if (jugador == null)
+        {
+            GameObject objJugador = GameObject.Find("Personaje");
+            if (objJugador != null) jugador = objJugador.transform;
+        }
     }
 
     void Update()
     {
-        // Si el jugador no existe (ej. fue destruido), no hacemos nada
         if (jugador == null) return;
 
-        // --- 1. LÓGICA PARA VOLTEAR EL SPRITE (MIRAR AL JUGADOR) ---
-        // Comparamos la posición en el eje X del jugador frente a la del enemigo
+        float distancia = Vector2.Distance(transform.position, jugador.position);
+
+        // --- Lógica de Movimiento e IA ---
+        if (distancia <= radioDeAtaque)
+        {
+            // FASE 1: ATACAR
+            rb.linearVelocity = new Vector2(0, rb.linearVelocity.y); // Frena
+            animator.SetBool("Moviendose", false);
+            animator.SetBool("Atacando", true);
+            MirarAlJugador();
+        }
+        else if (distancia <= radioDeVision)
+        {
+            // FASE 2: PERSEGUIR
+            animator.SetBool("Atacando", false);
+            animator.SetBool("Moviendose", true);
+
+            // Si el jugador está a la derecha, direccionX será 1. Si está a la izquierda, será -1.
+            float direccionX = (jugador.position.x - transform.position.x) > 0 ? 1 : -1;
+            rb.linearVelocity = new Vector2(direccionX * velocidad, rb.linearVelocity.y);
+            MirarAlJugador();
+        }
+        else
+        {
+            // FASE 3: IDLE (Quieto)
+            rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
+            animator.SetBool("Atacando", false);
+            animator.SetBool("Moviendose", false);
+        }
+    }
+
+    private void MirarAlJugador()
+    {
+        // ¡AQUÍ ESTABA EL ERROR! 
+        // Si el jugador está a la izquierda (x es menor), la escala X debe ser NEGATIVA para voltearlo.
         if (jugador.position.x < transform.position.x)
         {
-            // El jugador está a la izquierda. Invertimos la escala X del enemigo para que lo mire.
-            // (Si tu enemigo se pone de espaldas, simplemente quita el signo "-" de aquí abajo)
             transform.localScale = new Vector3(-Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
         }
         else
         {
-            // El jugador está a la derecha. Ponemos la escala X en positivo.
-            // (Y ponle el signo "-" aquí si tuviste que quitarlo arriba)
+            // Si el jugador está a la derecha, la escala X debe ser POSITIVA (su estado normal).
             transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
-        }
-
-        // --- 2. LÓGICA PARA CAMBIAR DE IDLE A ATACAR ---
-        // Calculamos la distancia exacta en metros de Unity entre ambos
-        float distanciaAlJugador = Vector2.Distance(transform.position, jugador.position);
-
-        if (distanciaAlJugador <= radioDeAtaque)
-        {
-            // Está dentro del radio: Activamos el booleano para que pase a la animación de ataque
-            animator.SetBool("Atacando", true);
-        }
-        else
-        {
-            // Está lejos: Desactivamos el booleano para que vuelva a su Idle
-            animator.SetBool("Atacando", false);
         }
     }
 
-    // --- 3. LÓGICA PARA HACER DAÑO AL JUGADOR ---
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        // Detecta si lo que ha tocado nuestro cuerpo físico tiene la etiqueta "Player"
         if (collision.gameObject.CompareTag("Player"))
         {
             ControlPersonaje personaje = collision.gameObject.GetComponent<ControlPersonaje>();
-            if (personaje != null)
-            {
-                // Le quitamos una vida
-                personaje.RecibirDano();
-            }
+            if (personaje != null) personaje.RecibirDano();
 
-            // Inmediatamente después de golpear, el enemigo se destruye (desaparece)
             Destroy(gameObject);
         }
     }
 
-    //Esta función dibuja un círculo rojo en el editor para que veas hasta dónde llega tu radio de ataque
     private void OnDrawGizmosSelected()
     {
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position, radioDeVision);
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, radioDeAtaque);
     }

@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D), typeof(Collider2D))]
-public class BalaComportamiento : MonoBehaviour
+public class ControlBala : MonoBehaviour
 {
     public float velocidad = 15f;
     public float tiempoDeVida = 1.5f; //Esto limita su alcance. Se destruirá en 1.5 segundos.
