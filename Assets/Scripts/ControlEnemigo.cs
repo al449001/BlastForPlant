@@ -5,9 +5,9 @@ public class ControlEnemigo : MonoBehaviour
 {
     [Header("Configuración de IA (Saltos)")]
     public float radioDeVision = 6f;
-    public float fuerzaSaltoX = 3f; // Lo lejos que salta hacia ti
-    public float fuerzaSaltoY = 5f; // Lo alto que salta
-    public float tiempoEntreSaltos = 1.5f; // Segundos que espera en el suelo antes de volver a saltar
+    public float fuerzaSaltoX = 3f;
+    public float fuerzaSaltoY = 5f;
+    public float tiempoEntreSaltos = 1.5f;
 
     [Header("Referencias")]
     public Transform jugador;
@@ -21,7 +21,6 @@ public class ControlEnemigo : MonoBehaviour
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
 
-        // Autocargar al jugador si se nos olvida en el Inspector
         if (jugador == null)
         {
             GameObject objJugador = GameObject.Find("Personaje");
@@ -36,33 +35,32 @@ public class ControlEnemigo : MonoBehaviour
         float distancia = Vector2.Distance(transform.position, jugador.position);
         temporizadorSalto -= Time.deltaTime;
 
-        // Si el jugador entra en el campo de visión...
+        // --- LÓGICA STRICTA DE 2 ESTADOS ---
+
         if (distancia <= radioDeVision)
         {
-            // 1. Activa la animación de movimiento/ataque TODO EL RATO que te vea
+            // 1. Activa el estado de ataque constantemente mientras estés cerca
             animator.SetBool("Atacando", true);
             MirarAlJugador();
 
-            // 2. Lógica del salto (solo salta si está en el suelo y acabó el tiempo)
+            // 2. Ejecuta el salto físico si toca el suelo y el tiempo ha pasado
             if (temporizadorSalto <= 0f && Mathf.Abs(rb.linearVelocity.y) < 0.1f)
             {
                 SaltarHaciaJugador();
                 temporizadorSalto = tiempoEntreSaltos;
             }
         }
-        else // Si estás lejos y no te ve
+        else // Si te alejas de su rango de visión...
         {
-            // Vuelve a su estado de reposo absoluto
+            // 1. Lo mandamos a descansar (Idle)
             animator.SetBool("Atacando", false);
         }
     }
 
     private void SaltarHaciaJugador()
     {
-        // Calculamos la dirección (1 para la derecha, -1 para la izquierda)
         float direccionX = (jugador.position.x - transform.position.x) > 0 ? 1 : -1;
-
-        // Le damos un impulso seco hacia arriba y hacia adelante
+        // Empujón diagonal
         rb.linearVelocity = new Vector2(direccionX * fuerzaSaltoX, fuerzaSaltoY);
     }
 
@@ -84,7 +82,6 @@ public class ControlEnemigo : MonoBehaviour
         {
             ControlPersonaje personaje = collision.gameObject.GetComponent<ControlPersonaje>();
             if (personaje != null) personaje.RecibirDano();
-
             Destroy(gameObject);
         }
     }
