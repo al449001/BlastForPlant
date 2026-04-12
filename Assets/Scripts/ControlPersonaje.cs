@@ -27,9 +27,12 @@ public class ControlPersonaje : MonoBehaviour
     [Header("Sistema de Disparo")]
     public GameObject prefabBala;
     public Transform puntoDeDisparo;
-    public float tiempoRecarga = 0.5f; // Tiempo de espera obligado entre disparos
+    public float tiempoRecarga = 0.5f;
 
-    private float tiempoUltimoDisparo = -10f; // Control interno del tiempo
+    [Tooltip("Pon aquí la duración exacta de tu animación de ataque")]
+    public float retrasoBala = 0.5f; // <--- Sube o baja este número en el Inspector
+
+    private float tiempoUltimoDisparo = -10f;
 
     // Variables internas
     private Rigidbody2D rb;
@@ -130,38 +133,42 @@ public class ControlPersonaje : MonoBehaviour
     }
 
     // =========================================================
-    // --- SISTEMA DE DISPARO CON DIRECCIÓN PERFECTA ---
+    // --- SISTEMA DE DISPARO CON RETRASO PERFECTO ---
     // =========================================================
 
     private void Disparar()
     {
-        // Solo entra si el tiempo actual es mayor que la última vez que disparamos + la recarga
         if (Time.time >= tiempoUltimoDisparo + tiempoRecarga)
         {
-            // 1. Ejecutamos la animación al instante
+            // 1. Iniciamos la animación
             animator.SetTrigger("Disparar");
 
-            if (prefabBala != null && puntoDeDisparo != null)
+            // 2. Ejecutamos la espera
+            StartCoroutine(EsperarParaDisparar());
+
+            tiempoUltimoDisparo = Time.time;
+        }
+    }
+
+    private IEnumerator EsperarParaDisparar()
+    {
+        // El código se para aquí durante los segundos que pongas en el Inspector
+        yield return new WaitForSeconds(retrasoBala);
+
+        // AHORA SÍ: Creamos la bala
+        if (prefabBala != null && puntoDeDisparo != null)
+        {
+            GameObject balaCreada = Instantiate(prefabBala, puntoDeDisparo.position, transform.rotation) as GameObject;
+
+            float direccion = (transform.localScale.x > 0) ? 1f : -1f;
+
+            ControlBala scriptBala = balaCreada.GetComponent<ControlBala>();
+            if (scriptBala != null)
             {
-                // 2. Clonamos la bala (Añadido "as GameObject" por si Unity se pone exquisito)
-                GameObject balaCreada = Instantiate(prefabBala, puntoDeDisparo.position, transform.rotation) as GameObject;
-
-                // 3. Calculamos hacia dónde miras (1 para derecha, -1 para izquierda)
-                float direccion = (transform.localScale.x == escalaInicial.x) ? 1f : -1f;
-
-                // 4. Buscamos tu script real (ControlBala) y ajustamos su velocidad
-                ControlBala scriptBala = balaCreada.GetComponent<ControlBala>();
-                if (scriptBala != null)
-                {
-                    scriptBala.velocidad = Mathf.Abs(scriptBala.velocidad) * direccion;
-                }
-
-                // 5. Volteamos el dibujo de la bala para que mire a la izquierda si disparamos a la izquierda
-                balaCreada.transform.localScale = new Vector3(Mathf.Abs(balaCreada.transform.localScale.x) * direccion, balaCreada.transform.localScale.y, balaCreada.transform.localScale.z);
+                scriptBala.velocidad = Mathf.Abs(scriptBala.velocidad) * direccion;
             }
 
-            // Registramos la hora de este disparo
-            tiempoUltimoDisparo = Time.time;
+            balaCreada.transform.localScale = new Vector3(Mathf.Abs(balaCreada.transform.localScale.x) * direccion, balaCreada.transform.localScale.y, balaCreada.transform.localScale.z);
         }
     }
 

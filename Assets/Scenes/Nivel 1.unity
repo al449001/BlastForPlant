@@ -1348,6 +1348,7 @@ MonoBehaviour:
   prefabBala: {fileID: 389138862201261385, guid: c40351dbff833cc4c98f35df2d363b12, type: 3}
   puntoDeDisparo: {fileID: 1995106952}
   tiempoRecarga: 0.5
+  retrasoBala: 0.45
 --- !u!70 &1328077562
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
