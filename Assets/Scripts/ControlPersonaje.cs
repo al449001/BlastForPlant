@@ -74,7 +74,7 @@ public class ControlPersonaje : MonoBehaviour
             }
         }
 
-        // --- 3. DISPARO INSTANTÁNEO AL PULSAR ENTER ---
+        // --- 3. DISPARO ---
         if (Input.GetKeyDown(KeyCode.Return))
         {
             Disparar();
@@ -130,7 +130,7 @@ public class ControlPersonaje : MonoBehaviour
     }
 
     // =========================================================
-    // --- SISTEMA DE DISPARO INSTANTÁNEO CON RECARGA ---
+    // --- SISTEMA DE DISPARO CON DIRECCIÓN PERFECTA ---
     // =========================================================
 
     private void Disparar()
@@ -141,13 +141,26 @@ public class ControlPersonaje : MonoBehaviour
             // 1. Ejecutamos la animación al instante
             animator.SetTrigger("Disparar");
 
-            // 2. Clonamos la bala al instante
             if (prefabBala != null && puntoDeDisparo != null)
             {
-                Instantiate(prefabBala, puntoDeDisparo.position, transform.rotation);
+                // 2. Clonamos la bala (Añadido "as GameObject" por si Unity se pone exquisito)
+                GameObject balaCreada = Instantiate(prefabBala, puntoDeDisparo.position, transform.rotation) as GameObject;
+
+                // 3. Calculamos hacia dónde miras (1 para derecha, -1 para izquierda)
+                float direccion = (transform.localScale.x == escalaInicial.x) ? 1f : -1f;
+
+                // 4. Buscamos tu script real (ControlBala) y ajustamos su velocidad
+                ControlBala scriptBala = balaCreada.GetComponent<ControlBala>();
+                if (scriptBala != null)
+                {
+                    scriptBala.velocidad = Mathf.Abs(scriptBala.velocidad) * direccion;
+                }
+
+                // 5. Volteamos el dibujo de la bala para que mire a la izquierda si disparamos a la izquierda
+                balaCreada.transform.localScale = new Vector3(Mathf.Abs(balaCreada.transform.localScale.x) * direccion, balaCreada.transform.localScale.y, balaCreada.transform.localScale.z);
             }
 
-            // 3. Registramos la hora de este disparo para bloquear los siguientes hasta que pase el tiempo
+            // Registramos la hora de este disparo
             tiempoUltimoDisparo = Time.time;
         }
     }
