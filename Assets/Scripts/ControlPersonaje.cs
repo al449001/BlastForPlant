@@ -16,8 +16,9 @@ public class ControlPersonaje : MonoBehaviour
     public float radioSuelo = 0.2f;
     public LayerMask EsSuelo;
 
-    [Header("Sistema de Vidas")]
-    public int vidas = 4;
+    [Header("Sistema de Vidas e Interfaz")]
+    public int vidas = 3;
+    public Animator animadorBarraVida; // Aquí arrastraremos la barra de vida
     public TextMeshProUGUI textoVidas;
     public string nombreEscenaGameOver = "GameOver";
 
@@ -30,7 +31,7 @@ public class ControlPersonaje : MonoBehaviour
     public float tiempoRecarga = 0.5f;
 
     [Tooltip("Pon aquí la duración exacta de tu animación de ataque")]
-    public float retrasoBala = 0.5f; // <--- Sube o baja este número en el Inspector
+    public float retrasoBala = 0.5f;
 
     private float tiempoUltimoDisparo = -10f;
 
@@ -104,15 +105,32 @@ public class ControlPersonaje : MonoBehaviour
         animator.SetTrigger("Saltar");
     }
 
+    // =========================================================
+    // --- SISTEMA DE DAÑO Y VIDAS ---
+    // =========================================================
+
     public void RecibirDano()
     {
         if (esInvulnerable) return;
 
-        vidas--;
-        ActualizarUI();
+        // Usamos la nueva función para restar la vida y animar la barra
+        PerderVida();
 
         if (vidas <= 0) SceneManager.LoadScene(nombreEscenaGameOver);
         else StartCoroutine(RutinaInvulnerabilidad());
+    }
+
+    // Esta función se encarga de restar la vida y avisar a la animación de golpe
+    public void PerderVida()
+    {
+        vidas--; // Nos quitamos una vida
+        ActualizarUI(); // Actualizamos el texto antiguo (si aún está en la pantalla)
+
+        // Si hemos conectado la barra de vida, le enviamos el número de vidas que nos quedan
+        if (animadorBarraVida != null)
+        {
+            animadorBarraVida.SetInteger("VidasActuales", vidas);
+        }
     }
 
     private IEnumerator RutinaInvulnerabilidad()
@@ -140,26 +158,19 @@ public class ControlPersonaje : MonoBehaviour
     {
         if (Time.time >= tiempoUltimoDisparo + tiempoRecarga)
         {
-            // 1. Iniciamos la animación
             animator.SetTrigger("Disparar");
-
-            // 2. Ejecutamos la espera
             StartCoroutine(EsperarParaDisparar());
-
             tiempoUltimoDisparo = Time.time;
         }
     }
 
     private IEnumerator EsperarParaDisparar()
     {
-        // El código se para aquí durante los segundos que pongas en el Inspector
         yield return new WaitForSeconds(retrasoBala);
 
-        // AHORA SÍ: Creamos la bala
         if (prefabBala != null && puntoDeDisparo != null)
         {
             GameObject balaCreada = Instantiate(prefabBala, puntoDeDisparo.position, transform.rotation) as GameObject;
-
             float direccion = (transform.localScale.x > 0) ? 1f : -1f;
 
             ControlBala scriptBala = balaCreada.GetComponent<ControlBala>();
