@@ -4,59 +4,63 @@ using UnityEngine.SceneManagement;
 
 public class ControlPausa : MonoBehaviour
 {
-    [Header("Tus Objetos")]
-    public GameObject menuPausa; // Arrastra aquí tu objeto "MenuPausa" (el botón MENU)
-    public Image imagenMochila;  // Arrastra aquí el Image de tu "BotonMochila"
+    [Header("Lo que aparece al pausar")]
+    // Aquí arrastraremos el objeto que contiene tu botón MENU (y el fondo blanquito si lo tiene)
+    public GameObject todoElMenuPausa;
+
+    [Header("El Botón de la Mochila")]
+    public Image imagenMochila;
     public Sprite mochilaCerrada;
     public Sprite mochilaAbierta;
 
-    private bool juegoPausado = false;
+    private bool estaPausado = false;
 
     void Start()
     {
-        // Al empezar, nos aseguramos de que el juego corre
+        // 1. Al arrancar el nivel, nos aseguramos de que el tiempo fluye normal
         Time.timeScale = 1f;
 
-        // Ocultamos el botón MENU y cerramos la mochila
-        if (menuPausa != null) menuPausa.SetActive(false);
-        if (imagenMochila != null) imagenMochila.sprite = mochilaCerrada;
+        // 2. Apagamos el menú grande de pausa para que no moleste
+        if (todoElMenuPausa != null)
+        {
+            todoElMenuPausa.SetActive(false);
+        }
+
+        // 3. Ponemos el dibujo de la mochila cerrada
+        if (imagenMochila != null)
+        {
+            imagenMochila.sprite = mochilaCerrada;
+        }
     }
 
-    // Esta función va en el OnClick de la Mochila
-    public void AlternarPausa()
+    // Esta es la ÚNICA función que le pondremos al botón de la Mochila
+    public void TocarMochila()
     {
-        if (juegoPausado)
+        if (estaPausado == true)
         {
-            ReanudarJuego();
+            // --- SI ESTABA PAUSADO, LO REANUDAMOS ---
+            estaPausado = false;
+            Time.timeScale = 1f; // Todo vuelve a moverse
+
+            todoElMenuPausa.SetActive(false); // Escondemos el botón MENU
+            imagenMochila.sprite = mochilaCerrada; // Cerramos la mochila
         }
         else
         {
-            PausarJuego();
+            // --- SI ESTÁBAMOS JUGANDO NORMAL, PAUSAMOS ---
+            estaPausado = true;
+            Time.timeScale = 0f; // Los enemigos, el jugador y el tiempo se congelan
+
+            todoElMenuPausa.SetActive(true); // Mostramos el botón MENU en pantalla
+            imagenMochila.sprite = mochilaAbierta; // Abrimos la mochila
         }
     }
 
-    private void PausarJuego()
+    // Esta función se la pondremos SOLAMENTE al botón gigante de "MENU"
+    public void BotonIrAlMenu(string nombreEscenaPrincipal)
     {
-        juegoPausado = true;
-        Time.timeScale = 0f; // Pausa el juego
-
-        if (menuPausa != null) menuPausa.SetActive(true); // Aparece el botón MENU
-        if (imagenMochila != null) imagenMochila.sprite = mochilaAbierta; // Mochila abierta
-    }
-
-    public void ReanudarJuego()
-    {
-        juegoPausado = false;
-        Time.timeScale = 1f; // Reanuda el juego
-
-        if (menuPausa != null) menuPausa.SetActive(false); // Desaparece el botón MENU
-        if (imagenMochila != null) imagenMochila.sprite = mochilaCerrada; // Mochila cerrada
-    }
-
-    // Esta función va en el OnClick del botón MENU
-    public void IrAlMenuPrincipal(string nombreEscena)
-    {
+        // ¡CRÍTICO! Descongelar el tiempo antes de viajar, o el menú principal no funcionará
         Time.timeScale = 1f;
-        SceneManager.LoadScene(nombreEscena);
+        SceneManager.LoadScene(nombreEscenaPrincipal);
     }
 }
