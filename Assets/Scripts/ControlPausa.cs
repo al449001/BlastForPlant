@@ -1,11 +1,12 @@
 using UnityEngine;
-using UnityEngine.UI; //Necesario para cambiar la imagen del botón
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class ControlPausa : MonoBehaviour
 {
-    [Header("Referencias")]
-    public GameObject panelPausa; //El menú oscuro que aparece
-    public Image imagenBoton; //Para cambiar el dibujo de la mochila
+    [Header("Tus Objetos")]
+    public GameObject menuPausa; // Arrastra aquí tu objeto "MenuPausa" (el botón MENU)
+    public Image imagenMochila;  // Arrastra aquí el Image de tu "BotonMochila"
     public Sprite mochilaCerrada;
     public Sprite mochilaAbierta;
 
@@ -13,13 +14,15 @@ public class ControlPausa : MonoBehaviour
 
     void Start()
     {
-        //Al arrancar el nivel, el menú debe estar oculto y el tiempo normal
-        if (panelPausa != null) panelPausa.SetActive(false);
+        // Al empezar, nos aseguramos de que el juego corre
         Time.timeScale = 1f;
-        imagenBoton.sprite = mochilaCerrada;
+
+        // Ocultamos el botón MENU y cerramos la mochila
+        if (menuPausa != null) menuPausa.SetActive(false);
+        if (imagenMochila != null) imagenMochila.sprite = mochilaCerrada;
     }
 
-    //Esta función la conectaremos al OnClick del botón de la mochila
+    // Esta función va en el OnClick de la Mochila
     public void AlternarPausa()
     {
         if (juegoPausado)
@@ -35,20 +38,25 @@ public class ControlPausa : MonoBehaviour
     private void PausarJuego()
     {
         juegoPausado = true;
-        //Esto congela a los enemigos, al jugador, las físicas y las balas
-        Time.timeScale = 0f;
+        Time.timeScale = 0f; // Pausa el juego
 
-        panelPausa.SetActive(true); //Mostramos la ventana de menú
-        imagenBoton.sprite = mochilaAbierta; //Cambiamos el dibujo de la mochila
+        if (menuPausa != null) menuPausa.SetActive(true); // Aparece el botón MENU
+        if (imagenMochila != null) imagenMochila.sprite = mochilaAbierta; // Mochila abierta
     }
 
-    private void ReanudarJuego()
+    public void ReanudarJuego()
     {
         juegoPausado = false;
-        //El tiempo vuelve a correr con normalidad
-        Time.timeScale = 1f;
+        Time.timeScale = 1f; // Reanuda el juego
 
-        panelPausa.SetActive(false); //Ocultamos la ventana de menú
-        imagenBoton.sprite = mochilaCerrada; //Volvemos a la mochila cerrada
+        if (menuPausa != null) menuPausa.SetActive(false); // Desaparece el botón MENU
+        if (imagenMochila != null) imagenMochila.sprite = mochilaCerrada; // Mochila cerrada
+    }
+
+    // Esta función va en el OnClick del botón MENU
+    public void IrAlMenuPrincipal(string nombreEscena)
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene(nombreEscena);
     }
 }
