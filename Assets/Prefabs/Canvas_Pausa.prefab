@@ -532,7 +532,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06ff245ec7f638644984574e7670d9af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AudioFeedback
-  sonidoClic: {fileID: 8300000, guid: 144b0ec0a5265974eb72466dc3ec45ad, type: 3}
+  sonidoClic: {fileID: 8300000, guid: fa32379726ba87a4583abcd666accf5f, type: 3}
 --- !u!1 &5273036125562038692
 GameObject:
   m_ObjectHideFlags: 0

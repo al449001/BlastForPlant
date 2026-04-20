@@ -4,34 +4,32 @@ using UnityEngine;
 public class AudioFeedback : MonoBehaviour
 {
     [Header("Configuración de Sonido")]
-    [Tooltip("Arrastra aquí el archivo de sonido del clic")]
     public AudioClip sonidoClic;
 
-    //Referencia a altavoz
     private AudioSource audioSource;
 
     private void Awake()
     {
-        //Obtenemos el componente AudioSource que está oculto en este mismo botón
         audioSource = GetComponent<AudioSource>();
-
-        //Nos aseguramos de que el sonido NO suene por accidente nada más cargar el juego
         audioSource.playOnAwake = false;
     }
+
     public void ReproducirSonidoClic()
     {
-        // Comprobamos que haya un sonido asignado para evitar un error grave (NullReferenceException)
+        // [Gema de Conocimiento]: El Debug.Log es el mejor amigo del programador.
+        // Si este mensaje NO aparece en la consola, significa que el OnClick() 
+        // del botón en el Inspector está mal conectado.
+        Debug.Log("¡El botón ha sido pulsado y ha llegado al script!");
+
         if (sonidoClic != null)
         {
-            // Usamos PlayOneShot en lugar de Play() tradicional. 
-            // PlayOneShot es ideal para efectos cortos (UI, disparos, pasos),
-            // ya que permite que los sonidos se solapen si el jugador hace muchos clics rápidos.
+            // Si llega aquí, el código y la conexión están perfectos.
+            Debug.Log("¡El AudioClip existe, intentando reproducir por el altavoz!");
             audioSource.PlayOneShot(sonidoClic);
         }
         else
         {
-            //Si olvidaste poner el audio, Unity te avisará amablemente en la consola.
-            Debug.LogWarning("¡Falta asignar el AudioClip en el botón: " + gameObject.name + "!");
+            Debug.LogWarning("¡Error! La variable sonidoClic está vacía en el Inspector.");
         }
     }
 }
