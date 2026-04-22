@@ -1,7 +1,7 @@
 using UnityEngine;
 
-//Añadimos el AudioSource a la lista de componentes obligatorios
-[RequireComponent(typeof(Rigidbody2D), typeof(Collider2D), typeof(AudioSource))]
+// Ya no necesitamos exigir un AudioSource aquí, porque lo crearemos por código
+[RequireComponent(typeof(Rigidbody2D), typeof(Collider2D))]
 public class ControlBala : MonoBehaviour
 {
     [Header("Configuración de Vuelo")]
@@ -12,29 +12,33 @@ public class ControlBala : MonoBehaviour
     [Tooltip("Arrastra aquí tu MP3 de disparo")]
     public AudioClip sonidoAlNacer;
 
-    private AudioSource fuenteAudio;
-
-    void Awake()
-    {
-        // 1. Preparamos el altavoz de la bala
-        fuenteAudio = GetComponent<AudioSource>();
-        fuenteAudio.spatialBlend = 0f; //Sonido 2D puro
-        fuenteAudio.playOnAwake = false;
-    }
-
     void Start()
     {
-        // 2. ¡Hacemos sonar el disparo nada más nacer!
+        // 1. EL TRUCO DEL ALTAVOZ INDEPENDIENTE
         if (sonidoAlNacer != null)
         {
-            fuenteAudio.PlayOneShot(sonidoAlNacer);
+            // Creamos un objeto vacío y nuevo en la escena
+            GameObject altavoz = new GameObject("Sonido_Disparo_Bala");
+
+            // Le añadimos un reproductor de audio
+            AudioSource fuente = altavoz.AddComponent<AudioSource>();
+
+            // Lo configuramos en 2D y le metemos tu MP3
+            fuente.spatialBlend = 0f;
+            fuente.clip = sonidoAlNacer;
+
+            // ¡Que suene!
+            fuente.Play();
+
+            // Le decimos a Unity que destruya ESTE ALTAVOZ solo cuando termine el audio
+            // Así, la bala puede morir tranquila, el sonido está a salvo.
+            Destroy(altavoz, sonidoAlNacer.length);
         }
 
-        // 3. Arreglo del movimiento: Usamos un Vector2 directo en el eje X. 
-        // Como el ControlPersonaje ya le pone la velocidad en positivo o negativo, esto nunca falla.
+        // 2. Movimiento normal
         GetComponent<Rigidbody2D>().linearVelocity = new Vector2(velocidad, 0f);
 
-        // 4. Autodestrucción si se pierde en el infinito
+        // 3. Autodestrucción por si se pierde en el infinito
         Destroy(gameObject, tiempoDeVida);
     }
 
@@ -44,7 +48,7 @@ public class ControlBala : MonoBehaviour
         if (collision.gameObject.CompareTag("Enemigo"))
         {
             Destroy(collision.gameObject); // Destruye al enemigo
-            Destroy(gameObject); // Destruye la bala
+            Destroy(gameObject); // La bala muere, pero el sonido ya es independiente
         }
     }
 }
