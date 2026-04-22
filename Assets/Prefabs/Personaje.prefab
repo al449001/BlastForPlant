@@ -234,8 +234,8 @@ MonoBehaviour:
   nombreEscenaGameOver: GameOver
   prefabBala: {fileID: 389138862201261385, guid: c40351dbff833cc4c98f35df2d363b12, type: 3}
   puntoDeDisparo: {fileID: 5024820354504578369}
-  tiempoRecarga: 0.5
-  retrasoBala: 1.15
+  tiempoRecarga: 0.3
+  retrasoBala: 0.95
 --- !u!61 &8608497781669910100
 BoxCollider2D:
   m_ObjectHideFlags: 0

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-// Añadimos el AudioSource a la lista de componentes obligatorios
+//Añadimos el AudioSource a la lista de componentes obligatorios
 [RequireComponent(typeof(Rigidbody2D), typeof(Collider2D), typeof(AudioSource))]
 public class ControlBala : MonoBehaviour
 {
@@ -18,7 +18,7 @@ public class ControlBala : MonoBehaviour
     {
         // 1. Preparamos el altavoz de la bala
         fuenteAudio = GetComponent<AudioSource>();
-        fuenteAudio.spatialBlend = 0f; // Sonido 2D puro
+        fuenteAudio.spatialBlend = 0f; //Sonido 2D puro
         fuenteAudio.playOnAwake = false;
     }
 
