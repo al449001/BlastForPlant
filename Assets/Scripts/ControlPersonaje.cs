@@ -4,6 +4,7 @@ using UnityEngine.SceneManagement;
 using TMPro;
 
 [RequireComponent(typeof(Rigidbody2D), typeof(Animator), typeof(SpriteRenderer))]
+[RequireComponent(typeof(AudioSource))]
 public class ControlPersonaje : MonoBehaviour
 {
     [Header("Ajustes de Movimiento")]
@@ -18,44 +19,54 @@ public class ControlPersonaje : MonoBehaviour
 
     [Header("Sistema de Vidas e Interfaz")]
     public int vidas = 3;
-    public Animator BarraVida; // Aquí arrastraremos la barra de vida
-    public TextMeshProUGUI textoVidas;
+    public Animator BarraVida;
     public string nombreEscenaGameOver = "GameOver";
-
-    private bool esInvulnerable = false;
-    private SpriteRenderer spriteRenderer;
 
     [Header("Sistema de Disparo")]
     public GameObject prefabBala;
     public Transform puntoDeDisparo;
     public float tiempoRecarga = 0.5f;
+    public float retrasoBala = 0.15f;
 
-    [Tooltip("Pon aquí la duración exacta de tu animación de ataque")]
-    public float retrasoBala = 0.5f;
+    [Header("Efectos de Sonido del Personaje")]
+    [Tooltip("Arrastra aquí tu MP3 de cuando el personaje recibe daño")]
+    public AudioClip sonidoDaño; // <--- ¡AQUÍ ESTÁ TU NUEVA VARIABLE!
 
-    private float tiempoUltimoDisparo = -10f;
+    private AudioSource fuenteAudio;
 
-    // Variables internas
+    // Variables internas de control
     private Rigidbody2D rb;
     private Animator animator;
+    private SpriteRenderer spriteRenderer;
+    private bool esInvulnerable = false;
+    private float tiempoUltimoDisparo = -10f;
     private float movimientoHorizontal;
     private Vector3 escalaInicial;
     private bool enSuelo;
     private bool puedeDobleSalto;
 
-    void Start()
+    void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        fuenteAudio = GetComponent<AudioSource>();
 
+        if (fuenteAudio != null)
+        {
+            fuenteAudio.spatialBlend = 0f;
+            fuenteAudio.playOnAwake = false;
+        }
+    }
+
+    void Start()
+    {
         escalaInicial = transform.localScale;
         ActualizarUI();
     }
 
     void Update()
     {
-        // --- 1. LEER INPUTS ---
         movimientoHorizontal = Input.GetAxisRaw("Horizontal");
         animator.SetFloat("Velocidad", Mathf.Abs(movimientoHorizontal));
 
@@ -67,7 +78,6 @@ public class ControlPersonaje : MonoBehaviour
 
         if (enSuelo) puedeDobleSalto = true;
 
-        // --- 2. SALTO ---
         if (Input.GetButtonDown("Jump"))
         {
             if (enSuelo) EjecutarSalto();
@@ -78,13 +88,11 @@ public class ControlPersonaje : MonoBehaviour
             }
         }
 
-        // --- 3. DISPARO ---
         if (Input.GetKeyDown(KeyCode.Return))
         {
             Disparar();
         }
 
-        // --- 4. GRAVEDAD MEJORADA ---
         if (rb.linearVelocity.y < 0)
         {
             rb.linearVelocity += Vector2.up * Physics2D.gravity.y * (multiplicadorCaida - 1) * Time.deltaTime;
@@ -113,24 +121,26 @@ public class ControlPersonaje : MonoBehaviour
     {
         if (esInvulnerable) return;
 
-        // Usamos la nueva función para restar la vida y animar la barra
+        // --- ¡AQUÍ REPRODUCIMOS EL SONIDO DE DAÑO! ---
+        if (sonidoDaño != null && fuenteAudio != null)
+        {
+            fuenteAudio.PlayOneShot(sonidoDaño);
+        }
+        else
+        {
+            Debug.LogWarning("¡Te han hecho daño pero no has puesto el MP3 en el Inspector!");
+        }
+
         PerderVida();
 
         if (vidas <= 0) SceneManager.LoadScene(nombreEscenaGameOver);
         else StartCoroutine(RutinaInvulnerabilidad());
     }
 
-    // Esta función se encarga de restar la vida y avisar a la animación de golpe
     public void PerderVida()
     {
-        vidas--; // Nos quitamos una vida
-        ActualizarUI(); // Actualizamos el texto antiguo (si aún está en la pantalla)
-
-        // Si hemos conectado la barra de vida, le enviamos el número de vidas que nos quedan
-        if (BarraVida != null)
-        {
-            BarraVida.SetInteger("VidasActuales", vidas);
-        }
+        vidas--;
+        ActualizarUI();
     }
 
     private IEnumerator RutinaInvulnerabilidad()
@@ -151,7 +161,7 @@ public class ControlPersonaje : MonoBehaviour
     }
 
     // =========================================================
-    // --- SISTEMA DE DISPARO CON RETRASO PERFECTO ---
+    // --- SISTEMA DE DISPARO ---
     // =========================================================
 
     private void Disparar()
@@ -183,13 +193,8 @@ public class ControlPersonaje : MonoBehaviour
         }
     }
 
-    // =========================================================
-
     private void ActualizarUI()
     {
-        if (textoVidas != null) textoVidas.text = "Vidas: " + vidas;
-
-        // Esta es la línea mágica que te falta:
         if (BarraVida != null) BarraVida.SetInteger("VidasActuales", vidas);
     }
 
