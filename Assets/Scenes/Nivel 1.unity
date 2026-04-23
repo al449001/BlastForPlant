@@ -224,7 +224,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EfectoParalax
   camaraTransform: {fileID: 1488449197}
-  efectoParallax: 0
+  efectoParallax: 0.15
   seguirEnVertical: 1
   offsetVertical: 0
   correccionSolapamiento: 0.05
@@ -370,10 +370,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EfectoParalax
   camaraTransform: {fileID: 1488449197}
-  efectoParallax: 0
+  efectoParallax: 0.4
   seguirEnVertical: 1
   offsetVertical: 0
-  correccionSolapamiento: 0
+  correccionSolapamiento: 0.05
 --- !u!4 &455781668 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2204025864853970472, guid: ee7e3c522312e9140b3ffd43c669cca4, type: 3}
