@@ -237,7 +237,7 @@ MonoBehaviour:
   sonidoDisparo: {fileID: 8300000, guid: 42dce38fb4bc68b45b8cf1bdb19a05d3, type: 3}
   prefabBala: {fileID: 389138862201261385, guid: c40351dbff833cc4c98f35df2d363b12, type: 3}
   puntoDeDisparo: {fileID: 5024820354504578369}
-  tiempoRecarga: 0.3
+  tiempoRecarga: 0.2
   retrasoBala: 0.95
   tiempoRecuperacion: 0.1
 --- !u!61 &8608497781669910100
