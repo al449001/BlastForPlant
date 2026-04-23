@@ -54,7 +54,5 @@ public class EfectoParalax : MonoBehaviour
 
         // Aplicamos la posición
         transform.position = new Vector3(posicionInicialX + distancia, nuevaPosicionY, transform.position.z);
-
-        // ¡HE BORRADO EL BUCLE INFINITO PORQUE CON "TILED" NO HACE FALTA!
     }
 }
