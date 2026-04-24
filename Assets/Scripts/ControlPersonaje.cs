@@ -17,6 +17,7 @@ public class ControlPersonaje : MonoBehaviour
     public LayerMask EsSuelo;
 
     [Header("Sistema de Vidas e Interfaz")]
+    public int vidasMaximas = 3;
     public int vidas = 3;
     public Animator BarraVida;
     public TextMeshProUGUI textoVidas;
@@ -146,8 +147,11 @@ public class ControlPersonaje : MonoBehaviour
     //El método para que la vida extra te cure
     public void GanarVida()
     {
-        vidas++;
-        ActualizarUI();
+        if (vidas < vidasMaximas) //Si no ha llegado al tope de vida
+        {
+            vidas++;
+            ActualizarUI();
+        }
     }
 
     private IEnumerator RutinaInvulnerabilidad()
