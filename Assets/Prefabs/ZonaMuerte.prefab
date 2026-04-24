@@ -93,3 +93,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ZonaMuerte
   puntoDeRespawn: {fileID: 0}
   escenaGameOver: GameOver
+  sonidoCaida: {fileID: 8300000, guid: 78bed71034686424bb3a1f604fab6edc, type: 3}

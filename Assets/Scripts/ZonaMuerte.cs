@@ -14,7 +14,6 @@ public class ZonaMuerte : MonoBehaviour
 
             if (personaje != null)
             {
-                // !!! LLAMAMOS A LA NUEVA FUNCIÓN DEL PERSONAJE !!!
                 personaje.PerderVida();
 
                 if (personaje.vidas > 0)
