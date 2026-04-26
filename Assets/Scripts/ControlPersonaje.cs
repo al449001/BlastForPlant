@@ -2,10 +2,19 @@ using UnityEngine;
 using System.Collections;
 using UnityEngine.SceneManagement;
 using TMPro;
+using UnityEngine.InputSystem; // La magia del Input System
 
 [RequireComponent(typeof(Rigidbody2D), typeof(Animator), typeof(SpriteRenderer))]
 public class ControlPersonaje : MonoBehaviour
 {
+    [Header("Conexión con el Mapa Azul (Input System)")]
+    [Tooltip("Arrastra aquí tu acción de Moverse")]
+    public InputActionReference accionMover;
+    [Tooltip("Arrastra aquí tu acción de Saltar")]
+    public InputActionReference accionSaltar;
+    [Tooltip("Arrastra aquí tu acción de Disparar")]
+    public InputActionReference accionDisparar;
+
     [Header("Ajustes de Movimiento")]
     public float velocidadMovimiento = 5f;
     public float fuerzaSalto = 6.5f;
@@ -29,7 +38,9 @@ public class ControlPersonaje : MonoBehaviour
     public AudioClip sonidoDisparo;
     public AudioClip sonidoPaso;
     public AudioClip sonidoSalto;
-    public float tiempoEntrePasos = 0.3f; // Ajusta este valor en el Inspector para sincronizarlo visualmente
+    public float tiempoEntrePasos = 0.3f;
+    [Range(0f, 1f)]
+    public float volumenPasos = 0.2f;
 
     [Header("Sistema de Disparo Fluido")]
     public GameObject prefabBala;
@@ -40,7 +51,7 @@ public class ControlPersonaje : MonoBehaviour
 
     private bool estaDisparando = false;
 
-    // Variables internas de control
+    // Variables internas
     private Rigidbody2D rb;
     private Animator animator;
     private SpriteRenderer spriteRenderer;
@@ -51,8 +62,6 @@ public class ControlPersonaje : MonoBehaviour
     private Vector3 escalaInicial;
     private bool enSuelo;
     private bool puedeDobleSalto;
-
-    // Variable para controlar que el sonido del paso no se reproduzca a lo loco
     private float siguienteTiempoPaso = 0f;
 
     void Awake()
@@ -69,6 +78,22 @@ public class ControlPersonaje : MonoBehaviour
         }
     }
 
+    // --- ESTO ES NUEVO Y VITAL: Activar y desactivar el mapa azul ---
+    private void OnEnable()
+    {
+        if (accionMover != null) accionMover.action.Enable();
+        if (accionSaltar != null) accionSaltar.action.Enable();
+        if (accionDisparar != null) accionDisparar.action.Enable();
+    }
+
+    private void OnDisable()
+    {
+        if (accionMover != null) accionMover.action.Disable();
+        if (accionSaltar != null) accionSaltar.action.Disable();
+        if (accionDisparar != null) accionDisparar.action.Disable();
+    }
+    // -----------------------------------------------------------------
+
     void Start()
     {
         escalaInicial = transform.localScale;
@@ -77,7 +102,18 @@ public class ControlPersonaje : MonoBehaviour
 
     void Update()
     {
-        // Si está disparando, no le dejamos moverse
+        // 1. LEEMOS EL MAPA AZUL DIRECTAMENTE
+        float inputMando = 0f;
+        bool botonSalto = false;
+        bool botonDisparo = false;
+
+        // Si hemos conectado las acciones en el Inspector, leemos sus valores
+        if (accionMover != null) inputMando = accionMover.action.ReadValue<float>();
+        if (accionSaltar != null) botonSalto = accionSaltar.action.WasPressedThisFrame();
+        if (accionDisparar != null) botonDisparo = accionDisparar.action.WasPressedThisFrame();
+
+
+        // 2. LÓGICA DE MOVIMIENTO NORMAL
         if (estaDisparando)
         {
             movimientoHorizontal = 0f;
@@ -85,7 +121,7 @@ public class ControlPersonaje : MonoBehaviour
         }
         else
         {
-            movimientoHorizontal = Input.GetAxisRaw("Horizontal");
+            movimientoHorizontal = inputMando;
             animator.SetFloat("Velocidad", Mathf.Abs(movimientoHorizontal));
 
             if (movimientoHorizontal > 0) transform.localScale = escalaInicial;
@@ -95,25 +131,22 @@ public class ControlPersonaje : MonoBehaviour
         enSuelo = Physics2D.OverlapCircle(controladorSuelo.position, radioSuelo, EsSuelo);
         animator.SetBool("EnSuelo", enSuelo);
 
-        // --- LÓGICA CORREGIDA DE LOS PASOS ---
-        // Si está tocando el suelo, se está moviendo y no está disparando...
+        // Pasos
         if (enSuelo && Mathf.Abs(movimientoHorizontal) > 0 && !estaDisparando)
         {
-            // Comprobamos si ya ha pasado el tiempo suficiente desde el último paso
             if (Time.time >= siguienteTiempoPaso)
             {
                 if (sonidoPaso != null && fuenteAudio != null)
                 {
-                    fuenteAudio.PlayOneShot(sonidoPaso);
+                    fuenteAudio.PlayOneShot(sonidoPaso, volumenPasos);
                 }
-                // Programamos el siguiente paso sumándole los milisegundos de espera
                 siguienteTiempoPaso = Time.time + tiempoEntrePasos;
             }
         }
 
         if (enSuelo) puedeDobleSalto = true;
 
-        if (Input.GetButtonDown("Jump") && !estaDisparando)
+        if (botonSalto && !estaDisparando)
         {
             if (enSuelo) EjecutarSalto();
             else if (puedeDobleSalto)
@@ -123,7 +156,7 @@ public class ControlPersonaje : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.Return))
+        if (botonDisparo)
         {
             Disparar();
         }
@@ -141,7 +174,6 @@ public class ControlPersonaje : MonoBehaviour
 
     private void EjecutarSalto()
     {
-        // Sonido al ejecutar el salto
         if (sonidoSalto != null && fuenteAudio != null)
         {
             fuenteAudio.PlayOneShot(sonidoSalto);

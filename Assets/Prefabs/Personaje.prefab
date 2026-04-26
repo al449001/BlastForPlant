@@ -221,6 +221,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b1fdd6d1f79c8d498f91d2b0e91b4c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ControlPersonaje
+  accionMover: {fileID: 6216134867908264961, guid: 6515bb5e01a9765439f9f248acea14ab, type: 3}
+  accionSaltar: {fileID: 6574170361796033062, guid: 6515bb5e01a9765439f9f248acea14ab, type: 3}
+  accionDisparar: {fileID: -2230415814891696392, guid: 6515bb5e01a9765439f9f248acea14ab, type: 3}
   velocidadMovimiento: 5
   fuerzaSalto: 9
   multiplicadorCaida: 6
@@ -231,6 +234,7 @@ MonoBehaviour:
     m_Bits: 64
   vidasMaximas: 3
   vidas: 3
+  tiempoInvulnerabilidad: 0.8
   BarraVida: {fileID: 0}
   textoVidas: {fileID: 0}
   nombreEscenaGameOver: GameOver
@@ -239,6 +243,7 @@ MonoBehaviour:
   sonidoPaso: {fileID: 8300000, guid: b0f64a78856019842a8d2ba906778619, type: 3}
   sonidoSalto: {fileID: 8300000, guid: b4dbf4480efbf8c41b144dc60241e3df, type: 3}
   tiempoEntrePasos: 0.3
+  volumenPasos: 0.2
   prefabBala: {fileID: 389138862201261385, guid: c40351dbff833cc4c98f35df2d363b12, type: 3}
   puntoDeDisparo: {fileID: 5024820354504578369}
   tiempoRecarga: 0.3
