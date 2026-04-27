@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 public class ZonaMuerte : MonoBehaviour
 {
     public Transform puntoDeRespawn;
-    public string escenaGameOver = "GameOver";
+    public string escenaGameOver = "Game Over";
 
     [Header("Espera de Audio")]
     [Tooltip("Arrastra aquí el MISMO sonido del grito de caída para que el código sepa cuánto dura")]

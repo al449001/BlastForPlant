@@ -31,7 +31,7 @@ public class ControlPersonaje : MonoBehaviour
     public float tiempoInvulnerabilidad = 0.8f;
     public Animator BarraVida;
     public TextMeshProUGUI textoVidas;
-    public string nombreEscenaGameOver = "GameOver";
+    public string nombreEscenaGame_Over = "Game Over";
 
     [Header("Efectos de Sonido del Personaje")]
     public AudioClip sonidoDaño;
@@ -194,7 +194,7 @@ public class ControlPersonaje : MonoBehaviour
 
         PerderVida();
 
-        if (vidas <= 0) SceneManager.LoadScene(nombreEscenaGameOver);
+        if (vidas <= 0) SceneManager.LoadScene(nombreEscenaGame_Over);
         else StartCoroutine(RutinaInvulnerabilidad());
     }
 
