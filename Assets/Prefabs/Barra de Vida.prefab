@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5745004720343479236}
   - component: {fileID: 6477160646210591077}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: Barra de Vida
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

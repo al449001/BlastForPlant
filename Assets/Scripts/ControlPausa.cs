@@ -95,12 +95,6 @@ public class ControlPausa : MonoBehaviour
             fuenteAudioUI.PlayOneShot(sonidoReiniciar);
         }
 
-        // 3. Activamos la animación del botón
-        if (animadorMenu != null)
-        {
-            animadorMenu.SetTrigger("Pulsar");
-        }
-
         // 4. Esperamos el tiempo necesario
         yield return new WaitForSeconds(tiempoEsperaReiniciar);
 

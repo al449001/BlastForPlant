@@ -92,5 +92,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ZonaMuerte
   puntoDeRespawn: {fileID: 0}
-  escenaGameOver: GameOver
+  escenaGameOver: Game Over
   gritoCaida: {fileID: 8300000, guid: dc0baffaba9647d43887ba7c5f57d8af, type: 3}
