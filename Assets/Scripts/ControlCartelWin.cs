@@ -7,14 +7,15 @@ public class ControlCartelWin : MonoBehaviour
     [Header("Configuración")]
     public GameObject arbol;
     public string nombreEscenaWin = "Win";
-    public float tiempoEsperaExtra = 0.5f;
+    public float tiempoEsperaExtra = 0.8f;
 
     [Header("Sonidos y Música")]
     public AudioClip sonidoTocarCartel;
     public AudioClip sonidoCrecer;
-    public AudioSource musicaDelNivel; // <--- AQUÍ PONDREMOS LA MÚSICA PARA APAGARLA
+    public AudioSource musicaDelNivel;
 
     private Animator animatorArbol;
+    private SpriteRenderer spriteArbol;
     private bool yaActivado = false;
 
     void Start()
@@ -22,7 +23,9 @@ public class ControlCartelWin : MonoBehaviour
         if (arbol != null)
         {
             animatorArbol = arbol.GetComponent<Animator>();
-            arbol.SetActive(false);
+            spriteArbol = arbol.GetComponent<SpriteRenderer>();
+            // Empezamos con el árbol invisible para que no parpadee
+            if (spriteArbol != null) spriteArbol.enabled = false;
         }
     }
 
@@ -31,54 +34,50 @@ public class ControlCartelWin : MonoBehaviour
         if (collision.CompareTag("Player") && !yaActivado)
         {
             yaActivado = true;
-            StartCoroutine(SecuenciaVictoria());
+            // Bloqueamos el movimiento si tienes un script de control, 
+            // o simplemente esperamos a la corrutina
+            StartCoroutine(SecuenciaVictoria(collision.gameObject));
         }
     }
 
-    private IEnumerator SecuenciaVictoria()
+    private IEnumerator SecuenciaVictoria(GameObject jugador)
     {
-        // 1. SONIDO DEL CARTEL Y ESPERA
+        // 1. SONIDO DEL CARTEL
         if (sonidoTocarCartel != null)
         {
-            AudioSource.PlayClipAtPoint(sonidoTocarCartel, Camera.main.transform.position);
-            yield return new WaitForSeconds(sonidoTocarCartel.length);
+            AudioSource.PlayClipAtPoint(sonidoTocarCartel, Camera.main.transform.position, 1f);
+            yield return new WaitForSeconds(sonidoTocarCartel.length * 0.8f); // Espera casi todo el sonido
         }
 
-        // 2. ¡CORTAMOS LA MÚSICA DEL NIVEL!
-        if (musicaDelNivel != null)
-        {
-            musicaDelNivel.Stop();
-        }
-
-        // 3. APAGAMOS EL CARTEL
+        // 2. DESAPARECE PERSONAJE Y CARTEL
+        jugador.SetActive(false);
         GetComponent<SpriteRenderer>().enabled = false;
         GetComponent<Collider2D>().enabled = false;
+        if (musicaDelNivel != null) musicaDelNivel.Stop();
 
+        yield return new WaitForSeconds(0.2f); // Mini pausa dramática
+
+        // 3. APARECE EL ÁRBOL Y CRECE
         if (arbol != null)
         {
-            // 4. PREPARAMOS EL ÁRBOL
-            arbol.transform.position = transform.position;
-            arbol.SetActive(true);
+            if (spriteArbol != null) spriteArbol.enabled = true;
 
-            // 5. SONIDO DEL ÁRBOL CRECIENDO
             if (sonidoCrecer != null)
             {
-                AudioSource.PlayClipAtPoint(sonidoCrecer, Camera.main.transform.position);
+                AudioSource.PlayClipAtPoint(sonidoCrecer, Camera.main.transform.position, 1f);
             }
 
-            // Pausa de 1 frame para evitar el bug del Animator dormido
-            yield return null;
-
-            // 6. ANIMACIÓN Y ESPERA
+            // Forzamos el reinicio de la animación por si acaso
+            animatorArbol.Play("AnimacionArbol", 0, 0f);
             animatorArbol.SetTrigger("Crecer");
 
+            // Esperamos a que la animación termine de verdad
             yield return new WaitForSeconds(0.1f);
-
-            float duracionAnimacion = animatorArbol.GetCurrentAnimatorStateInfo(0).length;
-            yield return new WaitForSeconds(duracionAnimacion + tiempoEsperaExtra);
+            float duracion = animatorArbol.GetCurrentAnimatorStateInfo(0).length;
+            yield return new WaitForSeconds(duracion + tiempoEsperaExtra);
         }
 
-        // 7. ¡CAMBIO DE ESCENA!
+        // 4. CAMBIO DE ESCENA
         SceneManager.LoadScene(nombreEscenaWin);
     }
 }
