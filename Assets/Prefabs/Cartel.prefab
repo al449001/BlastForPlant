@@ -156,3 +156,4 @@ MonoBehaviour:
   tiempoEsperaExtra: 0.5
   sonidoTocarCartel: {fileID: 8300000, guid: 3d6150afe9477364a9fd52bd2a7bd3c5, type: 3}
   sonidoCrecer: {fileID: 8300000, guid: 95655c03c9c914d4fb80ec8a532aac8b, type: 3}
+  musicaDelNivel: {fileID: 1323401603928271134, guid: 5094df48a910a0f4896f87447c60f6e9, type: 3}

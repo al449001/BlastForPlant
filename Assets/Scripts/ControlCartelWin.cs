@@ -9,9 +9,10 @@ public class ControlCartelWin : MonoBehaviour
     public string nombreEscenaWin = "Win";
     public float tiempoEsperaExtra = 0.5f;
 
-    [Header("Sonidos")]
-    public AudioClip sonidoTocarCartel; // <--- EL NUEVO SONIDO DEL CARTEL
-    public AudioClip sonidoCrecer;      // El sonido del árbol
+    [Header("Sonidos y Música")]
+    public AudioClip sonidoTocarCartel;
+    public AudioClip sonidoCrecer;
+    public AudioSource musicaDelNivel; // <--- AQUÍ PONDREMOS LA MÚSICA PARA APAGARLA
 
     private Animator animatorArbol;
     private bool yaActivado = false;
@@ -36,35 +37,39 @@ public class ControlCartelWin : MonoBehaviour
 
     private IEnumerator SecuenciaVictoria()
     {
-        // 1. REPRODUCIMOS EL SONIDO DEL CARTEL Y ESPERAMOS
+        // 1. SONIDO DEL CARTEL Y ESPERA
         if (sonidoTocarCartel != null)
         {
             AudioSource.PlayClipAtPoint(sonidoTocarCartel, Camera.main.transform.position);
-
-            // Le decimos al código que espere exactamente los segundos que dura este audio
             yield return new WaitForSeconds(sonidoTocarCartel.length);
         }
 
-        // 2. APAGAMOS EL CARTEL (Ahora sí, después de que acabe el primer sonido)
+        // 2. ¡CORTAMOS LA MÚSICA DEL NIVEL!
+        if (musicaDelNivel != null)
+        {
+            musicaDelNivel.Stop();
+        }
+
+        // 3. APAGAMOS EL CARTEL
         GetComponent<SpriteRenderer>().enabled = false;
         GetComponent<Collider2D>().enabled = false;
 
         if (arbol != null)
         {
-            // 3. PREPARAMOS EL ÁRBOL
+            // 4. PREPARAMOS EL ÁRBOL
             arbol.transform.position = transform.position;
             arbol.SetActive(true);
 
-            // 4. REPRODUCIMOS EL SONIDO DEL ÁRBOL
+            // 5. SONIDO DEL ÁRBOL CRECIENDO
             if (sonidoCrecer != null)
             {
                 AudioSource.PlayClipAtPoint(sonidoCrecer, Camera.main.transform.position);
             }
 
-            // --- LA LÍNEA MÁGICA: Esperamos 1 frame para que el Animator "despierte" ---
+            // Pausa de 1 frame para evitar el bug del Animator dormido
             yield return null;
 
-            // 5. ANIMACIÓN Y ESPERA FINAL
+            // 6. ANIMACIÓN Y ESPERA
             animatorArbol.SetTrigger("Crecer");
 
             yield return new WaitForSeconds(0.1f);
@@ -73,7 +78,7 @@ public class ControlCartelWin : MonoBehaviour
             yield return new WaitForSeconds(duracionAnimacion + tiempoEsperaExtra);
         }
 
-        // 6. ¡VICTORIA!
+        // 7. ¡CAMBIO DE ESCENA!
         SceneManager.LoadScene(nombreEscenaWin);
     }
 }
