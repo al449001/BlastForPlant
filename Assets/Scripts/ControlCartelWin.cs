@@ -25,16 +25,13 @@ public class ControlCartelWin : MonoBehaviour
             animatorArbol = arbol.GetComponent<Animator>();
             spriteArbol = arbol.GetComponent<SpriteRenderer>();
 
-            // ARREGLO DE ANIMACIÓN: En lugar de apagar el objeto entero (SetActive(false)),
-            // solo apagamos el SpriteRenderer. Así el Animator sigue "despierto" y 
-            // no dará el error de "Animator Controller is not valid".
+            // Ocultamos el árbol al inicio
             if (spriteArbol != null) spriteArbol.enabled = false;
         }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        // ARREGLO DE ORDEN: Detectamos al jugador, pero no lo apagamos aún.
         if (collision.CompareTag("Player") && !yaActivado)
         {
             yaActivado = true;
@@ -44,54 +41,57 @@ public class ControlCartelWin : MonoBehaviour
 
     private IEnumerator SecuenciaVictoria(GameObject jugador)
     {
-        // 1. SONIDO DEL CARTEL Y ESPERA
+        // 1. Reproducimos el sonido del cartel
         if (sonidoTocarCartel != null)
         {
             AudioSource.PlayClipAtPoint(sonidoTocarCartel, Camera.main.transform.position, 1f);
             yield return new WaitForSeconds(sonidoTocarCartel.length);
         }
 
-        // 2. CORTAMOS LA MÚSICA DEL NIVEL
-        if (musicaDelNivel != null)
-        {
-            musicaDelNivel.Stop();
-        }
+        // 2. Paramos la música del nivel
+        if (musicaDelNivel != null) musicaDelNivel.Stop();
 
-        // 3. APAGAMOS EL CARTEL
+        // 3. Ocultamos el cartel
         GetComponent<SpriteRenderer>().enabled = false;
         GetComponent<Collider2D>().enabled = false;
 
-        // --- PAUSA DRAMÁTICA DE MEDIO SEGUNDO ANTES DEL ÁRBOL ---
-        yield return new WaitForSeconds(0.5f);
+        // Pausa dramática
+        yield return new WaitForSeconds(0.2f);
 
-        // 4. ARREGLO DE PERSONAJE: El personaje desaparece JUSTO ANTES que el árbol.
+        // 4. Ocultamos al jugador
         jugador.SetActive(false);
 
         if (arbol != null)
         {
-            // 5. APARECE EL ÁRBOL (Hacemos visible su SpriteRenderer)
+            // 5. Mostramos el árbol
             if (spriteArbol != null) spriteArbol.enabled = true;
 
-            // 6. SONIDO DEL ÁRBOL AL VOLUMEN MÁXIMO (1f)
             if (sonidoCrecer != null)
             {
                 AudioSource.PlayClipAtPoint(sonidoCrecer, Camera.main.transform.position, 1f);
             }
 
-            // --- TRUCO FINAL PARA LA ANIMACIÓN: Forzamos al Animator a reproducir 
-            // la animación de crecer desde el frame 0. Esto arregla los problemas de frames congelados.
+            // 6. Forzamos la animación desde el frame 0
             if (animatorArbol != null)
             {
-                animatorArbol.Play("AnimacionArbol", 0, 0f);
+                animatorArbol.Play("AnimacionArbol", -1, 0f);
             }
 
-            // 7. ESPERA A QUE TERMINE LA ANIMACIÓN
-            yield return new WaitForSeconds(0.1f); // Pequeña espera para que Unity cargue la animación
-            float duracionAnimacion = animatorArbol.GetCurrentAnimatorStateInfo(0).length;
-            yield return new WaitForSeconds(duracionAnimacion + tiempoEsperaExtra);
+            // 7. CÁLCULO AVANZADO DE TIEMPO
+            yield return new WaitForSeconds(0.1f); // Esperamos a que el Animator se actualice
+
+            // Obtenemos la información del estado actual
+            AnimatorStateInfo infoEstado = animatorArbol.GetCurrentAnimatorStateInfo(0);
+
+            // Calculamos el tiempo real: Duración original multiplicada por el modificador de velocidad
+            // Dividimos entre speedMultiplier por si la velocidad es menor a 1 (ej: 1 / 0.5 = 2 segundos)
+            float duracionReal = infoEstado.length / infoEstado.speedMultiplier;
+
+            // Esperamos el tiempo real más el extra que tú decidas
+            yield return new WaitForSeconds(duracionReal + tiempoEsperaExtra);
         }
 
-        // 8. ¡CAMBIO DE ESCENA!
+        // 8. Cambio de escena
         SceneManager.LoadScene(nombreEscenaWin);
     }
 }
