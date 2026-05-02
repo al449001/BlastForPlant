@@ -24,8 +24,8 @@ EditorBuildSettings:
     path: Assets/Scenes/Game Over.unity
     guid: ef82a42304c69934f92ae6736d45dfe5
   - enabled: 1
-    path: Assets/Scenes/Intro.unity
-    guid: fa849b68032549f47b734ea98038a364
+    path: "Assets/Scenes/Introducci\xF3n.unity"
+    guid: d0e689f45652cc34d94f730f9019c805
   - enabled: 1
     path: Assets/Scenes/Win.unity
     guid: 1d35dd47753709c42ab6783dac648c8a

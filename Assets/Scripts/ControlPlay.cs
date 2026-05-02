@@ -18,6 +18,6 @@ public class ControlPlay : MonoBehaviour
         if (animadorBoton != null) animadorBoton.SetTrigger("Pulsar");
         //Espera medio segundo
         yield return new WaitForSeconds(tiempoDeEspera);
-        SceneManager.LoadScene("Intro");
+        SceneManager.LoadScene("Introducción");
     }
 }
