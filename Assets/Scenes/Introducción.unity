@@ -474,7 +474,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1045129562
 RectTransform:
   m_ObjectHideFlags: 0
@@ -491,8 +491,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 274}
-  m_SizeDelta: {x: 1300, y: 8900.79}
+  m_AnchoredPosition: {x: 0, y: 593}
+  m_SizeDelta: {x: 1300, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1045129563
 MonoBehaviour:
@@ -529,49 +529,47 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_text: "For decades, the Earth has been suffering as a result of humanity\u2019s
-    appalling inability to manage the planet\u2019s natural resources.\n\nCenturies
-    of excessive consumerism, of unchecked production without efficient recycling
-    or reuse of materials, are turning our home into a vast, toxic space dump. The
-    oceans are deserts of plastic and the sky, a greyish dome. \n\nIt is against
-    this backdrop of utter desolation that the sky darkens completely, but not because
-    of clouds of pollution, but due to the arrival of the ships of the Multidimensional
-    Recycling Confederation.\n\nThey are an ancient civilisation, hailing from a
-    galaxy far, far away, beings whose sole cosmic mandate is to maintain the balance
-    of the universe. Their immense ships scan the surface, and the planet is declared:
-    \u2018World UNSUITABLE for life\u2019. \n\nUpon witnessing this stellar naval
-    deployment, humans unite as a single nation (for the first time) against a common
-    enemy. They deploy their deadliest arsenal and intercept the mothership with
-    a barrage of nuclear missiles. However, the attack is an utter failure. The explosions
-    barely graze the Confederation\u2019s shields, but the hostile act infuriates
-    the visitors.\n\nTheir response is not annihilation by fire, but the release
-    of a gas into the atmosphere that descends like a blanket over the cities. This
-    gas transforms the population inhabiting the Earth into monsters, which, coincidentally,
-    are the very creatures the Confederation keeps as pets. \n\nIn the midst of this
-    apocalypse is Timy, a former soldier with tactical training who manages to seal
-    off his home in time. He knows that brute force has already failed. If he wants
-    to save humanity from becoming mere cosmic compost, he must nip the problem in
-    the bud. On a mission that defies all logic, Timy manages to reactivate an old
-    military fighter jet, pierces the polluted atmosphere and infiltrates the cargo
-    holds of the alien mothership.\n\nThere, he does not steal a weapon, but something
-    far more powerful: the Genesis Core, an alien seed designed to purify entire
-    biospheres. Returning to Earth with the seed, Timy must find a patch of fertile
-    ground to plant it, but the streets are patrolled by hordes of monsters.\n\nAfter
-    managing to fight his way through the monsters, he reaches Central Park. He clears
-    away the rubble with his own hands until he finds fertile soil. With his heart
-    racing, he places the seed in the ground.\n\nThe effect is almost immediate.
-    The seed takes root at an astonishing speed, breaking through the crust of the
-    polluted Earth. An imposing tree with crystalline leaves rises towards the polluted
-    sky. Its branches begin to purify the air, releasing purified oxygen mixed with
-    the antidote to the alien gas. A fresh, luminous breeze sweeps through the city,
-    dispelling the toxic fog.\n\nThe Recycling Confederation, detecting that the
-    atmosphere is once again fit for life, halts its protocol and its ships silently
-    withdraw towards the stars.\n\nTimy watches as people rise to their feet, looking
-    at their hands and then at the resplendent tree. They have survived, but they
-    are no longer the same. Humanity has learnt the lesson the hard way. There is
-    no longer blind consumerism. From that moment on, the future of Earth is shaped
-    by an unwavering commitment to the three Rs: Reduce, Reuse and Recycle. The seed
-    not only restores the planet\u2019s atmosphere; it sows true consciousness in
-    the human heart."
+    appalling mismanagement of the planet\u2019s natural resources.\n\nCenturies
+    of excessive consumerism and unchecked production without efficient recycling
+    or reuse of materials are turning our home into a vast toxic waste dump. The
+    oceans have become deserts of plastic, and the sky is a grey dome. \n\nAgainst
+    this backdrop of utter desolation, the sky darkens completely \u2014 not due
+    to clouds of pollution, but because the ships of the Multidimensional Recycling
+    Confederation have arrived.\n\nThey are an ancient civilisation from a distant
+    galaxy, whose sole cosmic mandate is to maintain the balance of the universe.
+    Their immense ships scan the surface and the planet is declared \u2018UNSUITABLE
+    FOR LIFE\u2019. \n\nUpon witnessing this stellar naval deployment, humans unite
+    as a single nation for the first time against a common enemy. They deploy their
+    deadliest arsenal and intercept the mothership with a barrage of nuclear missiles.
+    However, the attack is an utter failure. The explosions barely graze the Confederation\u2019s
+    shields, but this hostile act infuriates the visitors.\n\nRather than annihilating
+    them by fire, they release a gas into the atmosphere that descends like a blanket
+    over the cities. This gas transforms the Earth's population into monsters, coincidentally
+    the same creatures that the Confederation keeps as pets. \n\nAmidst this apocalypse
+    is Timy, a former soldier with tactical training, who manages to seal off his
+    home in time. He knows that brute force has already failed. If he is to save
+    humanity from becoming mere cosmic compost, he must nip the problem in the bud.
+    In a mission that defies all logic, Timy manages to reactivate an old military
+    fighter jet, pierce the polluted atmosphere, and infiltrate the cargo holds of
+    the alien mothership.\n\nRather than stealing a weapon, he steals something far
+    more powerful: the Genesis Core, an alien seed designed to purify entire biospheres.
+    Returning to Earth with the seed, he must find fertile ground on which to plant
+    it. However, the streets are patrolled by hordes of monsters.\n\nAfter fighting
+    his way through them, he reaches Central Park. He clears away the rubble by hand
+    until he finds fertile soil. With his heart racing, he places the seed in the
+    ground.\n\nThe effect is almost immediate. The seed takes root at an astonishing
+    speed, breaking through the crust of the polluted Earth. An imposing tree with
+    crystalline leaves grows towards the polluted sky. Its branches begin to purify
+    the air, releasing oxygen mixed with an antidote to the alien gas. A fresh, luminous
+    breeze sweeps through the city, dispelling the toxic fog.\n\nDetecting that the
+    atmosphere is once again fit for life, the Recycling Confederation halts its
+    protocol and its ships silently withdraw towards the stars.\n\nTimy watches people
+    rise to their feet and look at their hands, then at the resplendent tree. They
+    have survived, but they are no longer the same. Humanity has learnt its lesson
+    the hard way. Blind consumerism is a thing of the past. From that moment on,
+    the future of Earth is shaped by an unwavering commitment to the three Rs: Reduce,
+    Reuse and Recycle. This approach not only restores the planet\u2019s atmosphere,
+    but also sows true consciousness in the human heart."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -895,8 +893,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 1300, y: 0}
+  m_AnchoredPosition: {x: 0, y: -802}
+  m_SizeDelta: {x: 1300, y: 9924.21}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &279563488594964564
 GameObject:
@@ -968,7 +966,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CreditosFinales
   velocidad: 72
-  tiempoParaBoton: 147
+  tiempoParaBoton: 135
   grupoBoton: {fileID: 399245565}
 --- !u!1 &1026846238288966753
 GameObject:
@@ -1308,7 +1306,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!223 &6832262038657307724
 Canvas:
   m_ObjectHideFlags: 0
