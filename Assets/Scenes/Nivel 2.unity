@@ -507,10 +507,10 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1688210756}
-  - {fileID: 511359924}
   - {fileID: 511309285}
   - {fileID: 430858166}
   - {fileID: 814302507}
+  - {fileID: 511359924}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &416979786 stripped
@@ -545,7 +545,7 @@ Transform:
   m_GameObject: {fileID: 430858165}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 68, y: -8.9, z: 0}
+  m_LocalPosition: {x: 68, y: -8.9, z: 5}
   m_LocalScale: {x: 0.84, y: 0.85, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -598,7 +598,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: -7
+  m_SortingOrder: -6
   m_MaskInteraction: 0
   m_Sprite: {fileID: 21300000, guid: 446377e017faf764399c21d357fb83c8, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -623,7 +623,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EfectoParalax
   camaraTransform: {fileID: 372349381}
-  efectoParallax: 0.2
+  efectoParallax: 0.4
   seguirEnVertical: 1
   offsetVertical: 0
   correccionSolapamiento: 0.05
@@ -697,7 +697,7 @@ Transform:
   m_GameObject: {fileID: 511309284}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 65.5783, y: -11.0318, z: 0}
+  m_LocalPosition: {x: 65.5783, y: -11.0318, z: 8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -775,7 +775,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EfectoParalax
   camaraTransform: {fileID: 372349381}
-  efectoParallax: 0.4
+  efectoParallax: 0.6
   seguirEnVertical: 1
   offsetVertical: 0
   correccionSolapamiento: 0.05
@@ -859,7 +859,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 3
+  m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: 21300000, guid: c60582518376e454cbb3d9ec035472bc, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -1045,7 +1045,7 @@ Transform:
   m_GameObject: {fileID: 814302506}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 69.5, y: -10.8, z: 0}
+  m_LocalPosition: {x: 69.5, y: -10.8, z: 2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1098,7 +1098,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: -5
+  m_SortingOrder: -4
   m_MaskInteraction: 0
   m_Sprite: {fileID: 21300000, guid: 96d56466b2eeee3489dcf296f5962168, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -1123,7 +1123,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EfectoParalax
   camaraTransform: {fileID: 372349381}
-  efectoParallax: 0.6
+  efectoParallax: 0.3
   seguirEnVertical: 1
   offsetVertical: 0
   correccionSolapamiento: 0.05
@@ -1429,7 +1429,7 @@ Transform:
   m_GameObject: {fileID: 1688210755}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 33.9, y: -8.98, z: 0}
+  m_LocalPosition: {x: 33.9, y: -8.98, z: 10}
   m_LocalScale: {x: 2.08, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

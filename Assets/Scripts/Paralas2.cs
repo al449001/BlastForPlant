@@ -1,7 +1,8 @@
 using UnityEngine;
 
+// Esto asegura que Unity no te deje añadir este script si no hay un SpriteRenderer
 [RequireComponent(typeof(SpriteRenderer))]
-public class EfectoParalax2 : MonoBehaviour
+public class Paralas2 : MonoBehaviour
 {
     private float longitudSprite;
     private float posicionInicialX;
@@ -25,32 +26,44 @@ public class EfectoParalax2 : MonoBehaviour
 
     void Start()
     {
+        // Guardamos las posiciones iniciales
         posicionInicialX = transform.position.x;
         posicionInicialY = transform.position.y;
+
+        // Obtenemos el ancho exacto del sprite
         float tamañoReal = GetComponent<SpriteRenderer>().sprite.bounds.size.x;
+        // Le restamos tu corrección para evitar líneas transparentes
         longitudSprite = tamañoReal - correccionSolapamiento;
     }
 
-    void LateUpdate()
+    void LateUpdate() // Usamos LateUpdate para que se mueva DESPUÉS de que la cámara se haya movido
     {
         if (camaraTransform == null) return;
 
-        float movimientoCamara = camaraTransform.position.x * (1 - efectoParallax);
+        // Calcula cuánto nos hemos movido respecto a la cámara para saber si debemos "reiniciar" el fondo
+        float temp = (camaraTransform.position.x * (1 - efectoParallax));
+
+        // Calcula la distancia que debe moverse el fondo
         float distancia = (camaraTransform.position.x * efectoParallax);
 
+        // Ajustamos la altura si decidimos que siga a la cámara verticalmente
         float nuevaPosicionY = posicionInicialY;
         if (seguirEnVertical)
         {
             nuevaPosicionY = camaraTransform.position.y + offsetVertical;
         }
 
+        // Movemos el fondo a su nueva posición
         transform.position = new Vector3(posicionInicialX + distancia, nuevaPosicionY, transform.position.z);
 
-        if (movimientoCamara > posicionInicialX + longitudSprite)
+        // ¡AQUÍ ESTÁ LA MAGIA INFINITA!
+        // Si la cámara avanzó más allá de la longitud del sprite, movemos la posición inicial hacia adelante
+        if (temp > posicionInicialX + longitudSprite)
         {
             posicionInicialX += longitudSprite;
         }
-        else if (movimientoCamara < posicionInicialX - longitudSprite)
+        // Si el jugador retrocede, movemos la posición inicial hacia atrás
+        else if (temp < posicionInicialX - longitudSprite)
         {
             posicionInicialX -= longitudSprite;
         }
