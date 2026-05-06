@@ -410,7 +410,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CamaraPrincipal
   objetivo: {fileID: 5629412112785561647}
   suavizado: 0.125
-  offset: {x: 0, y: 0, z: -10}
+  offset: {x: 0, y: 2, z: -10}
   puedeSeguir: 1
 --- !u!1001 &396712419
 PrefabInstance:
